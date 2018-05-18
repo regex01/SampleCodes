@@ -1,0 +1,148 @@
+
+#1 
+"""
+n = int(input('Enter the number of elements to be inserted: '))
+a = []
+for i in range(0,n):
+    elem = int(input('enter element!: '))
+    a.append(elem)
+avg  = sum(a)/n 
+print('Avg of element in the list',round((avg,2)))
+##round function 
+"""
+
+#2
+"""
+cm = int(input("Enter the  height in centirements"))
+inches = 0.394 *cm
+feet   = 0.0328*cm  
+print("The length in inches",round(inches,2))
+print("The length in feet",round(feet,2))
+"""
+
+
+#3
+"""
+n = int(input('size of list'))
+b = [] 
+for i in range(0,n):
+    a = int(input('val'))
+    b.append(a)
+sum1 =0 
+sum2 =0 
+sum3 =0
+for j in b:
+    if(j>0):
+        if(j%2==0):
+            sum1 = sum1+j 
+        else:
+            sum2 = sum2+j
+    else:
+        sum3 = sum3+j
+
+print("Sum of all positive even numbers:",sum1)
+print("Sum of all positive odd numbers:",sum2)
+print("Sum of all negative numbers:",sum3 )
+
+"""
+#4
+"""
+n=int(input("Enter the number to print the tables for:"))
+for i in range(1,11):
+    print(n,"x",i,"=",n*i)
+"""
+#5
+#note: copy of variable is kept because we will need the original copy
+"""
+n = int(input('enter the num'))
+tmp = n 
+k = 0
+while(n>0):
+    k=k+1
+    n=n//10
+b = str(tmp)
+c = str(k) #convert to string so you can use the indexing option of the strinf
+d = c+b[k-1] 
+print("The new number formed:",int(d))
+
+"""
+#6 
+"""
+x = int(input('enter number 1'))
+y = int(input('enter number 2'))
+
+sum1 = 0 
+sum2 = 0
+
+for i in range(1,x):
+    if x % i == 0:
+        sum1+=i
+for j in range(1,y):
+    if y % i == 0:
+        sum2+=j
+
+if (sum1==y and sum2==x):
+    print('Amicable.')
+else:
+    print('Not Amicable')
+"""
+
+def armstrongfinder(num):
+    if num < 0:
+        print('incalid entry')
+    
+    num_str = str(num)
+    total_val = 0
+
+    for i in range(0,len(num_str)):
+            total_val = total_val + pow(int(num_str[i]),int(len(num_str)))
+        
+    if (total_val == num):
+        return 1
+    else:
+        return 0
+
+
+def armstrongsimple():
+    n = int(input('enter any number:')) 
+    a = list(map(float,str(n))) #here is wher the trick is map() function is mapping string value to a list.. creates a list from  a string 
+    b = list(map(lambda x:x**3,a))
+    if(sum(b) == n):
+        print('the num is amstrong')
+    else:
+        print('the number is not armstrong')
+
+def armstrongcalculate(num):
+    if(num<=0):
+        print('invalid input: ')
+    
+    a = list(map(int,str(num)))
+    b = list(map(lambda x:x**4,a))
+
+    if(sum(b) == num):
+        print('this given value is the amstrong')
+        return 1
+    else:
+        print('this given number is not amstrong')
+        return 0
+    
+
+def main():
+    
+    while(True):
+        
+        a = int(input('give a number for calculation'))
+        return_val = armstrongcalculate(a)
+        
+        if(return_val == 1):
+            print('we found the Armstrong ..we are quiting ')
+            break
+        else:
+            print('we are continiouing.......until we find the number')
+          
+
+
+if __name__ == "__main__":
+    main()
+    
+
