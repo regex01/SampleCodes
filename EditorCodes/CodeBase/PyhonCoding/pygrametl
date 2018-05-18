@@ -1,0 +1,190 @@
+
+#essential packages for pygram etl 
+import datetime
+import sys
+import time
+
+# In this example, we use psycopg2. You can change it to another driver,
+# but then the method pgcopybulkloader won't work as we use driver-specific
+# code there.
+# You can make another function or declare facttbl (see further below) to
+# be a BatchFactTable such that you don't need special
+# bulk loading methods.
+
+import psycopg2
+
+sys.path.append(r'c:\users\aciftcioglu\appdata\local\programs\python\python37-32\lib\site-packages (2.5)')
+
+
+
+# Depending on your system, you might have to do something like this
+# where you append the path where pygrametl is installed
+import pygrametl
+import pyodbc 
+
+#code to look at where pip install packages is 
+# pip show packagename 
+
+
+from pygrametl.datasources import CSVSource, MergeJoiningSource
+from pygrametl.tables import CachedDimension, SnowflakedDimension,SlowlyChangingDimension, BulkFactTable
+
+#connection to the target data warehouse
+#in here we need to use another package to connect sql server 
+pgconn = psycopg2.connect(user='me')
+connection  = pygrametl.connectionWrapper(pgconn)
+connection.setasdefault()
+connection.execute('set search_path to pygrametlexa')
+
+
+#connect sql server 
+cnxn = pyodbc.connect("Driver={SQL Server Native Client 11.0};"
+                      "Server=server_name;"
+                      "Database=db_name;"
+                      "Trusted_Connection=yes;")
+
+
+df = pd.read_sql_query('select * from table', cnxn)
+
+
+#methods 
+
+def pgcopybulkloader(name,atts,fieldsep,rowsep,nullval,filehandle):
+    #here we use driver specific code to get fast bulk loading
+    #you can change this method if you use another driver but we stick with    psycopg2 now.
+    #use the fact table or batchfacttable classes (which don't require)
+    #use of driver-specific code) instead of the bulkfacttable class
+    global connection
+    curs  = connection.cursor()
+    curs.copy_from(file = filehandle,table=name,sep=fieldsep,null=str(nullval),columns=atts)
+
+
+
+def datehandling(row,namemapping):
+    #This method is called from ensure(row) when the lookup of a date fails.
+    # In the Real World, you would probably prefill the date dimension, but
+    # we use this to illustrate "rowexpanders" that make it possible to
+    # calculate derived attributes on demand (such that the - possibly)
+    #expersive - calculations only are done when needed and not for each 
+    #see data row
+    #here we calculate all date related fields and add them to the row. 
+    
+    date = pygrametl.getvalue(row, 'date', namemapping)
+    (year, month, day, hour, minute, second, weekday, dayinyear, dst) = \
+        time.strptime(date, "%Y-%m-%d")
+    (isoyear, isoweek, isoweekday) = \
+        datetime.date(year, month, day).isocalendar()
+    
+    row['day'] = day,
+    row['month'] = month
+    row['year'] = year
+    row['week'] = isoweek
+    row['weekyear'] = isoyear
+    row['dateid'] = dayinyear + 366 * (year - 1990) #Support dates from 1990
+    return row
+
+
+
+def extractdomaininfo(row):
+    #take the 'www.domain.org' part  from 'http://www.domain.org/page.html'
+    #we also the host name 'www' in the domain in this example
+    domaininfo = row['url'].split('/')[-2]
+    row['domain'] = domaininfo
+    #take the top level which is the last part of the domain 
+    row['topleveldomain'] = domaininfo.split('.')[-1]
+
+def extractserverinfo(row):
+    #find the server name from string like "Servername/version"
+    row['server'] = row['serverversion'].split('/')[0]
+    
+#dimension and fact table objects
+
+topleveldim = CachedDimension(
+    name = 'topleveldomain',
+    key = 'topleveldomainid',
+    attributes = ['topleveldomain']
+    )
+     
+domaindim = CashedDimension(
+    name = 'domain',
+    key = 'domainid',
+    attributes = ['domain','topleveldomainid'],
+    lookupatt = ['domain'])
+
+serverversiondim = CachedDimension(
+    name = 'serverversion',
+    key = 'serverversionid',
+    attributes = ['serverversion','serverid'] 
+)
+
+pagedim = SlowlyChangingDimension(
+    name = 'page',
+    key = 'pageid',
+    attributes = ['url','size','validfrom','validto','version','domainid','serverversionid'],
+    lookupatts = ['url'],
+    versionatt = 'version',
+    fromatt = 'validfrom',
+    toatt = 'validto',
+    srcdateatt = 'lastmoddate',
+    cachesize = -1)
+
+pagesf = SnowflakedDimension(
+    [(pagedim, (serverversiondim, domaindim)),
+     (serverversiondim, serverdim),
+     (domaindim, topleveldim)
+     ])
+
+testdim = CachedDimension(
+    name='test',
+    key='testid',
+    attributes=['testname', 'testauthor'],
+    lookupatts=['testname'],
+    prefill=True,
+    defaultidvalue=-1)
+
+datedim = CachedDimension(
+    name='date',
+    key='dateid',
+    attributes=['date', 'day', 'month', 'year', 'week', 'weekyear'],
+    lookupatts=['date'],
+    rowexpander=datehandling)
+
+
+facttbl = BulkFactTable(
+    name='testresults',
+    keyrefs=['pageid', 'testid', 'dateid'],
+    measures=['errors'],
+    bulkloader=pgcopybulkloader,
+    bulksize=5000000)
+
+
+
+# Data sources - change the path if you have your files somewhere else
+# The buffer size is set to 16384 B, as it performed better than any alternatives we tested
+
+dowloadlog =CSVSource(file('./DownloadLog.csv', 'r', 16384),
+                        delimiter='\t')
+
+testresults =  CSVSource(file('./TestResults.csv', 'r', 16384),
+                        delimiter='\t')
+
+
+inputdata = MergeJoiningSource(downloadlog, 'localfile',
+                               testresults, 'localfile')
+
+
+def main():
+    for row in inputdata:
+        extractdomaininfo(row)
+        extractserverinfo(row)
+        row['size'] = pygrametl.getint(row['size']) #convert to an integer 
+        #add data to dimension table and fact table
+        row['pageid']  = pagesf.scdensure(row)
+        row['dateid']  = datedim.ensure(row,{'date':'downloaddate'})
+        row['testid']  = testdim.lookup(row,{'testname':'test'})
+        facttbl.insert(row)
+        connection.commit()
+    
+if __name__ == '__main__':
+    main()
+

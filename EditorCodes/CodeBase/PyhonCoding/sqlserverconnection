@@ -1,0 +1,15 @@
+
+import pyodbc 
+import pandas as pd
+
+
+
+
+#connect sql server 
+cnxn = pyodbc.connect("Driver={SQL Server Native Client 11.0};"
+                      "Server=server_name;"
+                      "Database=db_name;"
+                      "Trusted_Connection=yes;")
+
+
+df = pd.read_sql_query('select * from table', cnxn)

@@ -1,0 +1,22 @@
+
+import io 
+
+
+class DetermineList:
+    def __init__(self,val):
+        self.val = val
+        
+    def createList(self,num1):
+        d_list = [i for i in range(0,num1,2) if i%3 == 0 ]
+        return d_list
+
+
+df_list = DetermineList(10)
+val_return = df_list.createList(100)
+
+if(val_return == []):
+    print('Nothing obtained from function')
+else:
+    for i in val_return:
+        print(i)
+

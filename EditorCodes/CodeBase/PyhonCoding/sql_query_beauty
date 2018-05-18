@@ -1,0 +1,57 @@
+    -- this code delete duplicated
+    values
+        WITH CTE AS(
+            SELECT
+                RN = ROW_NUMBER() OVER(
+                    PARTITION BY [ProductID],
+                    [CostComponent],
+                    [EffectiveDate] 
+                    ORDER BY
+                        [ProductID],
+                        [CostComponent],
+                        [EffectiveDate]
+                )
+            FROM
+                [ln].[ItemStandardCost]
+        )
+    DELETE FROM
+        CTE
+    WHERE
+        RN > 1
+    SELECT
+        @ @ROWCOUNT AS DeletedRows
+------------------------------------------------------------------------------------------------------  
+
+
+select 
+ t_item as ProductID
+,t_npsl	as	ShelfLife
+,t_kpsl	as	PeriodForShelfLife
+,t_abcc	as	ABCCode
+from ln.twhwmd400711
+
+--------------------------------------------------------------------------------------------------------------
+
+WITH CTE AS(  SELECT   RN = ROW_NUMBER()OVER(PARTITION BY 
+
+ SELECT 
+
+[ProductID]
+
+ ORDER BY 
+
+[ProductID]
+
+ )  FROM [ln].[ItemWarehousingData]) DELETE FROM CTE WHERE RN >1
+
+	 SELECT @@ROWCOUNT AS DeletedRows
+
+    "WITH CTE AS(  SELECT   RN = ROW_NUMBER()OVER(PARTITION BY 
+    
+        [ProductID]
+            
+            ORDER BY 
+        [ProductID]
+        )  FROM " + @[User::vSchemaTableName] + ") DELETE FROM CTE WHERE RN >1
+        SELECT @@ROWCOUNT AS DeletedRows"
+ 
