@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="TF Upsert ADO_Connection"
+  DTS:DTSID="{9D10D2AF-FEAA-4144-BB25-E4AE4505A20C}"
+  DTS:CreationName="ADO.NET:SQL">
+  <DTS:PropertyExpression
+    DTS:Name="InitialCatalog">@[$Project::pTargetDatabase]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="ServerName">@[$Project::pTargetServer]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=USLV-BIDBDEV;Initial Catalog=EDW_STAGE;Integrated Security=True;Application Name=SSIS-InternalInboundERPLNProductLineIncr-{9D10D2AF-FEAA-4144-BB25-E4AE4505A20C}USMK-DODSDEV.DODS;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

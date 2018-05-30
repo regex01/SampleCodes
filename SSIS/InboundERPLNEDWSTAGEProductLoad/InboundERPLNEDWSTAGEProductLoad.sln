@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "InboundERPLNEDWSTAGEProductLoad", "InboundERPLNEDWSTAGEProductLoad.dtproj", "{39CF9077-2EE1-4543-8E84-996EF8C23F0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39CF9077-2EE1-4543-8E84-996EF8C23F0C}.Development|Default.ActiveCfg = Development
+		{39CF9077-2EE1-4543-8E84-996EF8C23F0C}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8D0ECD4-50BA-4D2F-9D77-A43D15DBEB96}
+	EndGlobalSection
+EndGlobal
