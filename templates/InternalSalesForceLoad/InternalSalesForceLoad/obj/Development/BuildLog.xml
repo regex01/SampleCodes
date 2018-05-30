@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectInfo>
+    <Name>InternalSalesForceLoad</Name>
+    <LastWriteTime>2018-03-09T21:23:22.0151181Z</LastWriteTime>
+    <LastKnownProtectionLevel>DontSaveSensitive</LastKnownProtectionLevel>
+  </ProjectInfo>
+  <LastBuildInfos>
+    <ProjectBuildItemInfo>
+      <Name>InternalInboundNewDistributorAccounts.dtsx</Name>
+      <LastWriteTime>2018-03-09T21:18:48.5595861Z</LastWriteTime>
+      <LastKnownProtectionLevel>DontSaveSensitive</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>InternalInBoundSalesforceAccountSetup.dtsx</Name>
+      <LastWriteTime>2018-03-09T21:23:14.9681865Z</LastWriteTime>
+      <LastKnownProtectionLevel>DontSaveSensitive</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>InternalInBoundSalesforceMaster.dtsx</Name>
+      <LastWriteTime>2018-03-09T21:18:49.2158443Z</LastWriteTime>
+      <LastKnownProtectionLevel>DontSaveSensitive</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>InternalInboundSalesForceNewDirectAccounts.dtsx</Name>
+      <LastWriteTime>2018-03-09T21:18:49.6533479Z</LastWriteTime>
+      <LastKnownProtectionLevel>DontSaveSensitive</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+  </LastBuildInfos>
+</BuildLog>

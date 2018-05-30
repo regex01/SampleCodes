@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "SFTPUtility", "SFTPUtility\SFTPUtility.dtproj", "{ECA1F4CB-FAE4-45F6-BBA1-B17ACDA4263A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECA1F4CB-FAE4-45F6-BBA1-B17ACDA4263A}.Development|Default.ActiveCfg = Development
+		{ECA1F4CB-FAE4-45F6-BBA1-B17ACDA4263A}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

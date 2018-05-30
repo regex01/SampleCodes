@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="SFTP Connection Mgr"
+  DTS:DTSID="{BAFC7D68-543E-4766-8418-3691E9157693}"
+  DTS:CreationName="SFTPConnection">
+  <DTS:PropertyExpression
+    DTS:Name="Host">@[$Project::pSFTPConnectionString]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="Password">@[$Project::pSFTPPassword]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="Username">@[$Project::pSFTPUserName]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <SFTPConnectionManager
+      ConnectionString="ConnectionType=1;Host=b2b.valuecentric.com;Port=22;Username=quidelsftp;Timeout=300;DefaultRemoteDirectory=;UseProxy=False;ReuseConnection=False;ProxyType=0;ProxyHost=;ProxyPort=0;ProxyUsername=;UseBinaryTransfer=True;UsePassiveMode=True;IgnoreServerIP=True;TransferBufferSize=0;SSLVersion=2;AuthenticationMode=0;KeyFile=;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

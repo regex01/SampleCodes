@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "InternalSalesForceLoad", "InternalSalesForceLoad\InternalSalesForceLoad.dtproj", "{45D119B7-8FA8-4D15-A1E7-6686B7A4C917}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45D119B7-8FA8-4D15-A1E7-6686B7A4C917}.Development|Default.ActiveCfg = Development
+		{45D119B7-8FA8-4D15-A1E7-6686B7A4C917}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

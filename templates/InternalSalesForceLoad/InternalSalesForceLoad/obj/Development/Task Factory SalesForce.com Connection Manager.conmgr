@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:DelayValidation="True"
+  DTS:ObjectName="Task Factory SalesForce.com Connection Manager"
+  DTS:DTSID="{08AC1662-B209-40AD-8847-309888651FB5}"
+  DTS:CreationName="SALESFORCE TF">
+  <DTS:PropertyExpression
+    DTS:Name="Password">@[$Project::pSalesForcePwd]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="ServerURL">@[$Project::pURLAddress]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="Username">@[$Project::pSalesForceUserName]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <TaskFactorySalesForceConnectionManager
+      ConnectionString="Username=sfdc.etl@quidel.com.fulldata;ServerURL=https://test.salesforce.com/services/Soap/u/36.0;Timeout=300;UseProxy=False;ProxyHost=;ProxyUserName=darlington.nwemeh@quidel.com;ProxyDomain=;ProxyPort=0;ReuseConnectionAcrossAllTasks=True;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
